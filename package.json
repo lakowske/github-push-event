@@ -1,0 +1,29 @@
+{
+  "name": "github-push-event",
+  "version": "0.0.1",
+  "description": "Generates github push events",
+  "main": "index.js",
+  "scripts": {
+    "test": "node test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/lakowske/github-push-event.git"
+  },
+  "keywords": [
+    "github",
+    "push",
+    "event",
+    "generator",
+    "mock"
+  ],
+  "author": "Seth Lakowske",
+  "license": "BSD-3",
+  "bugs": {
+    "url": "https://github.com/lakowske/github-push-event/issues"
+  },
+  "homepage": "https://github.com/lakowske/github-push-event",
+  "dependencies": {
+    "request": "^2.51.0"
+  }
+}
