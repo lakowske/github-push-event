@@ -24,6 +24,5 @@
   },
   "homepage": "https://github.com/lakowske/github-push-event",
   "dependencies": {
-    "request": "^2.51.0"
   }
 }
