@@ -37,6 +37,7 @@ function Push(options) {
     this.options.port     = options.port;
     this.options.path     = options.path;
     this.options.method   = 'POST';
+    this.options.string   = options.string;
 }
 
 Push.prototype.push = function() {
@@ -60,7 +61,7 @@ Push.prototype.push = function() {
 
     })
 
-    req.write(this.options.string);
+    req.write(self.options.string);
     req.end();
 }
 
