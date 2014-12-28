@@ -14,8 +14,8 @@ test('it sends a valid push event', function(t) {
 
     var server = http.createServer(function(req, res) {
         console.log(JSON.stringify(req.headers));
-        console.log(req.url);
-        console.log(req.method);
+        t.strictEquals(req.url, path, 'url should match ' + path);
+        t.strictEquals(req.method, 'POST', 'should be a post request');
 
         res.writeHead(200, {'Content-Type':'text/plain'});
         res.end('got request');
@@ -38,7 +38,11 @@ test('it sends a valid push event', function(t) {
     })
 
     //send the push event
-    push.push();
-    
+    push.push(function(response) {
+        console.log('responseString: ' + response);
+        console.log('shutting down server');
+        server.close();
+        t.end();
+    });
 
 })

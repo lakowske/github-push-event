@@ -40,7 +40,7 @@ function Push(options) {
     this.options.string   = options.string;
 }
 
-Push.prototype.push = function() {
+Push.prototype.push = function(onEnd) {
     console.log('generating push request');
 
     var self = this;
@@ -55,11 +55,12 @@ Push.prototype.push = function() {
 
         res.on('data', function(chunk) {
             console.log('BODY: ' + chunk);
-            responseString += chunk;
+            responseString += chunk.toString();
         })
 
         res.on('end', function() {
-            self.result = JSON.parse(responseString);
+            onEnd(responseString);
+            //self.result = JSON.parse(responseString);
         })
 
     })
