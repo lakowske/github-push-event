@@ -2,7 +2,7 @@
  * (C) 2014 Seth Lakowske
  */
 
-var request = require('request');
+var http = require('http');
 
 /*
  * Returns a partialy constructed options object.
