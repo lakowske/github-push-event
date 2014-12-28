@@ -41,13 +41,16 @@ function Push(options) {
 }
 
 Push.prototype.push = function() {
+    console.log('generating push request');
+
     var self = this;
+
     var req = http.request(self.options, function(res) {
+
         console.log('STATUS: '  + res.statusCode);
         console.log('HEADERS: ' + JSON.stringify(res.headers));
 
         res.setEncoding('utf8');
-
         var responseString = '';
 
         res.on('data', function(chunk) {
