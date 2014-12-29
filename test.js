@@ -16,6 +16,18 @@ test('it sends a valid push event', function(t) {
         console.log(JSON.stringify(req.headers));
         t.strictEquals(req.url, path, 'url should match ' + path);
         t.strictEquals(req.method, 'POST', 'should be a post request');
+        var body = '';
+        var event = null;
+        req.on('data', function(chunk) {
+            body += chunk.toString();
+        });
+
+        req.on('end', function() {
+            console.log('got an event')
+            event = JSON.parse(body);
+            t.strictEquals(event.ref, 'refs/heads/master', 'should be a push event on master');
+            console.log(event.ref);
+        })
 
         res.writeHead(200, {'Content-Type':'text/plain'});
         res.end('got request');
@@ -24,7 +36,7 @@ test('it sends a valid push event', function(t) {
     server.listen(port);
 
     //read in event template
-    var event = fs.readFileSync('event.txt').toString();
+    var event = fs.readFileSync('pushEvent.txt').toString();
 
     //describe the webhook push event
     var push = new Push({
