@@ -2,10 +2,11 @@
  * (C) 2014 Seth Lakowske
  */
 
-var test = require('tape');
-var http = require('http');
-var Push = require('./');
-var fs   = require('fs');
+var test       = require('tape');
+var http       = require('http');
+var Push       = require('./').Push;
+var PushEvent  = require('./').PushEvent;
+var fs         = require('fs');
 var handlebars = require('handlebars');
 
 test('it sends a valid push event', function(t) {
@@ -37,9 +38,8 @@ test('it sends a valid push event', function(t) {
     server.listen(port);
 
     //read in event template
-    var event = fs.readFileSync('pushEvent.txt').toString();
-    var template = handlebars.compile(event);
-    var data     = {
+    var pushEvent = new PushEvent();
+    var result = pushEvent.get({
         'ref'   :'refs/heads/master',
         'before':'171c2ede2a4ccc4f108bb19438fce8729031336d',
         'after' :'171c2ede2a4ccc4f108bb19438fce8729031336e',
@@ -47,8 +47,7 @@ test('it sends a valid push event', function(t) {
         'username'  :'someUser',
         'repository':'someRepo',
         'email'     :'some@email.com'
-    }
-    var result   = template(data);
+    });
 
     console.log(result);
 

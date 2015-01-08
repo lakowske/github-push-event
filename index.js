@@ -26,6 +26,18 @@ function getOptions(url, delivery, signature, length) {
 }
 
 /*
+ * An event factory
+ */
+function PushEvent() {
+    this.event = fs.readFileSync('pushEvent.txt').toString();
+    this.template = handlebars.compile(this.event);
+}
+
+PushEvent.prototype.get = function(values) {
+    return this.template(values);
+}
+
+/*
  * A Github Push event.
  */
 function Push(options) {
@@ -69,4 +81,5 @@ Push.prototype.push = function(onEnd) {
     req.end();
 }
 
-module.exports = Push;
+module.exports.Push      = Push;
+module.exports.PushEvent = PushEvent;
