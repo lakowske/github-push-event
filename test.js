@@ -6,6 +6,7 @@ var test = require('tape');
 var http = require('http');
 var Push = require('./');
 var fs   = require('fs');
+var handlebars = require('handlebars');
 
 test('it sends a valid push event', function(t) {
 
@@ -37,13 +38,26 @@ test('it sends a valid push event', function(t) {
 
     //read in event template
     var event = fs.readFileSync('pushEvent.txt').toString();
+    var template = handlebars.compile(event);
+    var data     = {
+        'ref'   :'refs/heads/master',
+        'before':'171c2ede2a4ccc4f108bb19438fce8729031336d',
+        'after' :'171c2ede2a4ccc4f108bb19438fce8729031336e',
+        'commit':'171c2ede2a4ccc4f108bb19438fce8729031336e',
+        'username'  :'someUser',
+        'repository':'someRepo',
+        'email'     :'some@email.com'
+    }
+    var result   = template(data);
+
+    console.log(result);
 
     //describe the webhook push event
     var push = new Push({
         url       : 'http://localhost:'+port+path,
         delivery  : 'b476ef00-8d9e-11e4-9962-1c7fc692548e',
         signature : 'sha1=171c2ede2a4ccc4f108bb19438fce8729031336c',
-        string    : event,
+        string    : result,
         hostname  : 'localhost',
         port      : port,
         path      : path,
