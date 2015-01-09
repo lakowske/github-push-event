@@ -2,8 +2,8 @@
  * (C) 2014 Seth Lakowske
  */
 
-var http = require('http');
-
+var http       = require('http');
+var handlebars = require('handlebars');
 /*
  * Returns a partialy constructed options object.
  */
