@@ -29,7 +29,7 @@ function getOptions(url, delivery, signature, length) {
  * An event factory
  */
 function PushEvent() {
-    this.event = fs.readFileSync('pushEvent.txt').toString();
+    this.event = fs.readFileSync(__dirname + '/pushEvent.txt').toString();
     this.template = handlebars.compile(this.event);
 }
 

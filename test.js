@@ -49,8 +49,6 @@ test('it sends a valid push event', function(t) {
         'email'     :'some@email.com'
     });
 
-    console.log(result);
-
     //describe the webhook push event
     var push = new Push({
         url       : 'http://localhost:'+port+path,
